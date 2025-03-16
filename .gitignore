@@ -1,0 +1,13 @@
+# MATLAB specific files to ignore
+*.asv
+*.m~
+*.mlx
+*.mlapp
+*.mlpkginstall
+*.mlproj
+*.slx
+*.mdl
+*.mdlp
+*.slxp
+*.sldd
+*.sltx
