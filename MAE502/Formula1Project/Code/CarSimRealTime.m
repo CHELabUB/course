@@ -290,6 +290,9 @@ function [t,Y,U,Total_time, Num_of_violation] = CarSimRealTime(fun, Tspan, Y0, .
             return
         end
     end
+    
+    fprintf("Does not reach the finish line.. \n");
+    Total_time = NaN;
 end
 
 

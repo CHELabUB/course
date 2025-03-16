@@ -83,7 +83,7 @@ gamma0=gamma(0);
 Time=350;
 
 % Animation=1; % Animation on
-Animation=1; % Animation off
+Animation=0; % Animation off
 
 %%
 usize=10;
@@ -119,10 +119,12 @@ sys=@(t,x,para) car_dynamics(t,x(1),x(2),x(3),x(4), x(5),para);
 
 %% Run
 
-[t,y,u, TotalTime, Num_of_violation]=CarSimRealTime(sys,[0 Time],x0,s_start,sim_step,usize,Track,Car,Animation);
+[t, y, u, TotalTime, Num_of_violation]=CarSimRealTime(sys, [0 Time], x0, ...
+                                                      s_start, sim_step, usize, Track, Car, Animation, 0);
 
 %% Lateral Forces
-[Ffl_ana,Frl_ana]=Force_rwd(y(:,4),u(:,1),u(:,2),u(:,3),Car.m,Car.m0,Car.b,Car.w);   
+% calculated in plot_results
+% [Ffl_ana,Frl_ana]=Force_rwd(y(:,4),u(:,1) - Car.k * y(:,4).^2, u(:,2),u(:,3),Car.m,Car.m0,Car.b,Car.w);   
 
 if any(Num_of_violation ~= 0)
     fprintf("Num_of_violation: off track %d, front force %d, rear force %d", ...

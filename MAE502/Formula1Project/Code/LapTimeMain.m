@@ -110,8 +110,5 @@ sys=@(t,x,para) car_dynamics(t,x(1),x(2),x(3),x(4), x(5),para);
 
 [t,y,u, TotalTime, Num_of_violation]=CarSimRealTime(sys,[0 Time],x0,s_start,sim_step,usize,Track,Car,Animation);
 
-%% Lateral Forces
-[Ffl_ana,Frl_ana]=Force_rwd(y2(:,4),u2(:,1),u2(:,2),u2(:,3),Car.m,Car.m0,Car.b,Car.w);   
-
 %% Show the trajectories
 plot_results;

@@ -46,11 +46,12 @@ L=[L,ylabel('$v$[m/s]', "Rotation", 0)];L=[L,xlabel('$t$[sec]')];
 RR=u(:,1);
 sss=u(:,5);
 nnn=u(:,8);
+nnnf=u(:, 9);
+nnnr=u(:, 10);
 gamma_actual=y(:,5);
 gamma_dot_actual=u(:,2);
-[Frl_ana,Ffl_ana]=Force_rwd(y(:,4), u(:,1), y(:,5), u(:,2),...
+[Ffl_ana,Frl_ana]=Force_rwd(y(:,4), u(:,1) - Car.k * y(:,4).^2, y(:,5), u(:,2),...
                             Car.m,Car.m0,Car.b,Car.w);   
-
 
 %%
 figure(102);clf;
@@ -65,9 +66,11 @@ plot(t,sss, 'b');
 L=[L,ylabel('$s$[m]', "Rotation", 0)];
 subplot(5,1,3);hold on; grid on; box on;
 plot(t,nnn, 'b');
+plot(t,nnnf, "r--");
+plot(t,nnnr,"g-.");
 n_boundary = Track.fun_width(sss)/2;
-plot(t,n_boundary, 'k--');
-plot(t,-n_boundary, 'k--');
+plot(t,n_boundary, 'k--', "LineWidth", 1);
+plot(t,-n_boundary, 'k--', "LineWidth", 1);
 L=[L,ylabel('$n$[m]', "Rotation", 0)];
 subplot(5,1,4); hold on;grid on; box on;
 plot(t, gamma_actual, 'b');
