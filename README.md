@@ -1,5 +1,7 @@
 ## Repository contains sharable materials
-Under constructions
+Current course includes:
+- MAE 502 Vehicle Control Systems
+
 
 Contact: Chaozhe He
 Assistant Professor
