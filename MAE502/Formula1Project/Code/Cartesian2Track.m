@@ -32,8 +32,9 @@ function [s,sf,sr,n,nf,nr]=Cartesian2Track(x,y,psi,s,Track,Car)
     valuec=det([vec_c';tcenter']); % from the path2center vector to the tangent vector at the center
     if valuec>ntol  % path2center vector pointing towards the right need to turn a positive angle to over come
         n=-n;
-    else if valuec>=-ntol  % to small, the center is almost on the path, no need to adjust. 
-        n=0; 
+    else 
+        if valuec>=-ntol  % to small, the center is almost on the path, no need to adjust. 
+            n=0; 
         end
     end
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  front axis  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -49,8 +50,9 @@ function [s,sf,sr,n,nf,nr]=Cartesian2Track(x,y,psi,s,Track,Car)
     valuef=det([vec_f';tfront']); % from the path2center vector to the tangent vector at the center
     if valuef>ntol  % path2center vector pointing towards the right need to turn a positive angle to over come
         nf=-nf;
-    else if valuef>=-ntol  % to small, the center is almost on the path, no need to adjust. 
-        nf=0; 
+    else 
+        if valuef>=-ntol  % to small, the center is almost on the path, no need to adjust. 
+            nf=0; 
         end
     end
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  rear axis  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -66,8 +68,9 @@ function [s,sf,sr,n,nf,nr]=Cartesian2Track(x,y,psi,s,Track,Car)
     valuer=det([vec_r';trear']); % from the path2center vector to the tangent vector at the center
     if valuer>ntol  % path2center vector pointing towards the right need to turn a positive angle to over come
         nr=-nr;
-    else if valuer>=-ntol  % to small, the center is almost on the path, no need to adjust. 
-        nr=0; 
+    else 
+        if valuer>=-ntol  % to small, the center is almost on the path, no need to adjust. 
+            nr=0; 
         end
     end
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

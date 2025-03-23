@@ -20,8 +20,10 @@ function [gamma_dot, gamma_desired, saturated] = Steering_control(...
    ntol=0.1;   % dead zone for the lateral error
    alphatol=0.02; % dead zone for the heading error
    %% get error
-   n_ref = path.n(s0); % positive if too the left of the center
-   n = n0 - n_ref; % positive if too the left of the path
+   % remark: sf corresponds to the closest point on the center of the track to the vehicle front axis.
+   % if the path is not the center line, then the closest point on the path may be different. 
+   n_ref = path.n(sf); % positive if too the left of the center
+   n = nf - n_ref; % positive if too the left of the path
    % dead zone: almost on the path no need to adjust
    if abs(n) < ntol
       n = 0;
