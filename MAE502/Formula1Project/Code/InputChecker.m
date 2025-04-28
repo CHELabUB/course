@@ -14,22 +14,29 @@
 function [Rcontrol_real,gamma_real,gammadot_real]=InputChecker(Rcontrol,gamma,gammadot,Car,Time,sim_step)
    gammadata=gamma(0:sim_step:Time);
    indexgamma=find(gammadata>Car.gamma_max|gammadata<Car.gamma_min);
+   indexgammadot=find(gammadata>Car.gamma_dot_max|gammadata<Car.gamma_dot_min);
    Rdata=Rcontrol(0:sim_step:Time);
    indexR=find(Rdata>Car.R_max|Rdata<Car.R_min);
 
    %%%%%%%%%%
-   diff_num=@(f,dt,t) (f(t+dt)-f(t-dt))/(2*dt);dt=1e-6;
+   % In this new version, the gamma would not matter as it is not a control and not used in the simulation except for the initial condition
    if isempty(indexgamma)==0  
-      warning('Steering angle input violate constains, cap with bounds and and use numerical gammadot');
+      warning('Steering angle input violate constraints, cap with bounds');
       gamma_real=@(t) max(Car.gamma_min,min(Car.gamma_max,gamma(t)));
-      gammadot_real=@(t)  diff_num(gamma_real,dt,t);
    else   
-      gamma_real=@(t) gamma(t);
-      gammadot_real=@(t)  gammadot(t);
-      
+      gamma_real=@(t)  gamma(t);
    end
+
+   % check gamma_dot
+   if isempty(indexgammadot)==0  
+      warning('Steering angle input violate constraints, cap with bounds and and use numerical gammadot');
+      gammadot_real=@(t) max(Car.gamma_dot_min,min(Car.gamma_dot_max,gamma(t)));
+   else   
+      gammadot_real=@(t)  gammadot(t);
+   end
+
    if isempty(indexR)==0  
-      warning('Driving force input violate constaints, cap with bounds');
+      warning('Driving force input violate constraints, cap with bounds');
       Rcontrol_real=@(t) max(Car.R_min,min(Car.R_max,Rcontrol(t)));
       
    else   
