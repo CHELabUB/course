@@ -14,7 +14,8 @@
 function [Rcontrol_real,gamma_real,gammadot_real]=InputChecker(Rcontrol,gamma,gammadot,Car,Time,sim_step)
    gammadata=gamma(0:sim_step:Time);
    indexgamma=find(gammadata>Car.gamma_max|gammadata<Car.gamma_min);
-   indexgammadot=find(gammadata>Car.gamma_dot_max|gammadata<Car.gamma_dot_min);
+   gammadotdata=gammadot(0:sim_step:Time);
+   indexgammadot=find(gammadotdata>Car.gamma_dot_max|gammadotdata<Car.gamma_dot_min);
    Rdata=Rcontrol(0:sim_step:Time);
    indexR=find(Rdata>Car.R_max|Rdata<Car.R_min);
 
@@ -30,7 +31,7 @@ function [Rcontrol_real,gamma_real,gammadot_real]=InputChecker(Rcontrol,gamma,ga
    % check gamma_dot
    if isempty(indexgammadot)==0  
       warning('Steering angle input violate constraints, cap with bounds and and use numerical gammadot');
-      gammadot_real=@(t) max(Car.gamma_dot_min,min(Car.gamma_dot_max,gamma(t)));
+      gammadot_real=@(t) max(Car.gamma_dot_min,min(Car.gamma_dot_max,gammadot(t)));
    else   
       gammadot_real=@(t)  gammadot(t);
    end
