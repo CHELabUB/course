@@ -11,3 +11,5 @@
 *.slxp
 *.sldd
 *.sltx
+
+*temp/
