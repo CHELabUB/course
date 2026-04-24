@@ -21,16 +21,17 @@ load('CircuitOfAmerica.mat');
 % 8 team this year.
 Teamname={...
 'Sir Lewis Hamiltune   '; %1 Howlader	Mahdi
-'Team Nathan Rishe     '; %2 Rishe	Nathan
+'DennitRacing          '; %2 Rishe	Nathan
 'The Derbmobile        '; %3 Derby	Jacob
-'Team Morgan Ben       '; %4 Morgan	Ben
+'Captain Morgan        '; %4 Morgan	Ben
 'Optimal Ackermann     '; %5 Costello	Ryan
 'Gorn-mobile           '; %6 Gorny	Andrew
 'Falcon                '; %7 Krieger	Wyatt
 'The Visible Boatmobile'; %8 Tran	Thanh
 'Example Open loop   '; % 9 can choose to leave out
 'Example Closed loop '; % 10 can choose to leave out
-'2025 Champion       '; % 11
+'2025 Runner-up      '; % 11
+'2025 Champion       '; % 12 % Chris
 };
 %% If random
 
@@ -47,7 +48,7 @@ Teamname={...
 % pause;
 %% Team run
 %% for test
-Team_can=[9,10,11];
+Team_can=[2, 3, 6, 7, 9, 11];
 % Team_can = 1:length(Teamname);
 Traj=cell(length(Team_can),3);
 Cars=cell(length(Team_can),1);
@@ -66,14 +67,13 @@ for i=1:length(Team_can)
     fprintf("Team %d, %s, %s \n", i, Names{i}, results.TeamName);
 end
 
-
 %% Generate videos
 
 color(4,:)=[]; % don't want black
 MatchRun(length(Cars),Traj,Cars,Names,Track,color)
+
 %% Summary Plot 
 % plot the trajectory and control enforce
-
 
 Height=0.85;
 Width=0.7;
@@ -152,7 +152,8 @@ subplot(5,2,9);
 plot(t,Ffl_ana,'color',color(i,:),'LineWidth',2);
 subplot(5,2,10);
 plot(t,Frl_ana,'color',color(i,:),'LineWidth',2);
-%% Show route togather with track
+
+%% Show route together with track
 figure(102)
 legend_handle(i) = plot(y(:,1),y(:,2),'LineWidth',2,'color',color(i,:));
 end
