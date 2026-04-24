@@ -20,17 +20,17 @@ load('CircuitOfAmerica.mat');
 %% TODO Need to update this with new results.
 % 8 team this year.
 Teamname={...
-'                    ';
-'                    ';
-'                    ';
-'                    ';
-'                    ';
-'                    ';
-'                    ';
-'                    ';
-'Example Open loop   '; % can choose to leave out
-'Example Closed loop '; % can choose to leave out
-'2025 Champion       '; 
+'Sir Lewis Hamiltune   '; %1 Howlader	Mahdi
+'Team Nathan Rishe     '; %2 Rishe	Nathan
+'The Derbmobile        '; %3 Derby	Jacob
+'Team Morgan Ben       '; %4 Morgan	Ben
+'Optimal Ackermann     '; %5 Costello	Ryan
+'Gorn-mobile           '; %6 Gorny	Andrew
+'Falcon                '; %7 Krieger	Wyatt
+'The Visible Boatmobile'; %8 Tran	Thanh
+'Example Open loop   '; % 9 can choose to leave out
+'Example Closed loop '; % 10 can choose to leave out
+'2025 Champion       '; % 11
 };
 %% If random
 
