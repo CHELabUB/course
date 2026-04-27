@@ -89,7 +89,7 @@ gamma_dot=@(t) diff_num(gamma,1e-6,t);
 
 
 
-Animation=1; % Animation on
+Animation=0; % Animation on
 % Animation=0; % Animation off
 
 %%
