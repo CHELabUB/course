@@ -57,22 +57,37 @@ pos0=Track.center(s_start);
 %% Open loop control
 
 % if you want to override the default initial speed and steering angle, you can do it here
-v0=sqrt(Car.R_max/Car.k); % default initial longitudinal speed
+v0=sqrt(Car.R_max/Car.k)-40; % default initial longitudinal speed
 gamma0=0; % initial steering angle
-
-% Driving force
-Rcontrol=@(t) Car.R_max+0*t;
-
-gammadot=@(t) 0*t;
-
-% if you instead define gamma as input, then the numerical differentiation to get gamma_dot
-% steering angle
-% gamma=@(t) 0*t;
-% diff_num=@(f,dt,t) (f(t+dt)-f(t-dt))/(2*dt);
-% gamma_dot=@(t) diff_num(gamma,1e-6,t); 
 
 % make sure you set a time long enough
 Time=350;
+
+sim_step=0.05; % do not change this as I will using this for the competition
+
+% Driving force
+R_time = 0:sim_step:Time;
+N = length(R_time);
+% max = abs(Car.R_min);
+R_sample(1:N) = Car.R_max;
+R_sample(1:300) = 0;
+Rcontrol=@(t) interp1(R_time,R_sample,t);
+% 
+% gammadot=@(t) 0*t;
+
+% if you instead define gamma as input, then the numerical differentiation to get gamma_dot
+% steering angle
+
+gamma_time = -0.1:sim_step:Time;
+N = length(gamma_time);
+gamma_sample(1:N) = 0;
+gamma_sample(150:175) = 0.015; 
+gamma_sample(176:N) = 0.02; 
+gamma=@(t) interp1(gamma_time,gamma_sample,t);
+diff_num=@(f,dt,t) (f(t+dt)-f(t-dt))/(2*dt);
+gamma_dot=@(t) diff_num(gamma,1e-6,t); 
+
+
 
 Animation=1; % Animation on
 % Animation=0; % Animation off
@@ -99,7 +114,7 @@ usize=10;
 x0=[pos0(1:2);Track.ftheta(s_start);v0; gamma0];
 sim_step=0.05; % do not change this as I will using this for the competition
 
-[Rcontrol_real,gamma_real,gamma_dot_real]=InputChecker(Rcontrol,gamma,gammadot,Car,Time,sim_step);
+[Rcontrol_real,gamma_real,gamma_dot_real]=InputChecker(Rcontrol,gamma,gamma_dot,Car,Time,sim_step);
 
 
 car_dynamics=@(t,x,y,psi,sigma, gamma, s) car_RWD(t,x,y,psi,sigma,gamma, ...
@@ -112,3 +127,6 @@ sys=@(t,x,para) car_dynamics(t,x(1),x(2),x(3),x(4), x(5),para);
 
 %% Show the trajectories
 plot_results;
+
+TeamName = "OptimalAckermann";
+save("OptimalAckermann.mat", 't','y','u', "Num_of_violation" , "TotalTime", "TeamName");
