@@ -20,18 +20,10 @@ load('CircuitOfAmerica.mat');
 %% TODO Need to update this with new results.
 % 8 team this year.
 Teamname={...
-'Sir Lewis Hamiltune   '; %1 Howlader	Mahdi
-'DennitRacing          '; %2 Rishe	Nathan
-'The Derbmobile        '; %3 Derby	Jacob
-'Captain Morgan        '; %4 Morgan	Ben
-'Optimal Ackermann     '; %5 Costello	Ryan
-'Gorn-mobile           '; %6 Gorny	Andrew
-'Falcon                '; %7 Krieger	Wyatt
-'The Visible Boatmobile'; %8 Tran	Thanh
-'Example Open loop    '; % 9 can choose to leave out (OK speed)
-'Example Closed loop  '; % 10 can choose to leave out (pretty slow)
-'2025 Runner-up       '; % 11 Back up reference performance
-'2025 Champion        '; % 12 % Primary Reference performance
+'2026 Champion        '; %  
+'2025 Champion        '; %  
+'Example Open loop    '; %  
+'Example Closed loop  '; % 
 };
 %% If random
 
@@ -48,14 +40,14 @@ Teamname={...
 % pause;
 %% Team run
 %% for test
-Team_can=[1:8, 12];
+Team_can=[1,2,3,4];
 % Team_can = 1:length(Teamname);
 Traj=cell(length(Team_can),3);
 Cars=cell(length(Team_can),1);
 Names=cell(length(Team_can),1);
 for i=1:length(Team_can)
     TeamNum=Team_can(i);
-    file= fullfile("Race2026", "Team" + num2str(TeamNum));
+    file= fullfile("Sample", "Team" + num2str(TeamNum));
     results=load(file);
     Traj{i,1}=results.t;
     Traj{i,2}=results.y;
