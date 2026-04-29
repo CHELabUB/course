@@ -28,10 +28,10 @@ Teamname={...
 'Gorn-mobile           '; %6 Gorny	Andrew
 'Falcon                '; %7 Krieger	Wyatt
 'The Visible Boatmobile'; %8 Tran	Thanh
-'Example Open loop   '; % 9 can choose to leave out
-'Example Closed loop '; % 10 can choose to leave out
-'2025 Runner-up      '; % 11
-'2025 Champion       '; % 12 % Chris
+'Example Open loop    '; % 9 can choose to leave out (OK speed)
+'Example Closed loop  '; % 10 can choose to leave out (pretty slow)
+'2025 Runner-up       '; % 11 Back up reference performance
+'2025 Champion        '; % 12 % Primary Reference performance
 };
 %% If random
 
@@ -48,7 +48,7 @@ Teamname={...
 % pause;
 %% Team run
 %% for test
-Team_can=[2, 3, 6, 7, 9, 11];
+Team_can=[1:8, 12];
 % Team_can = 1:length(Teamname);
 Traj=cell(length(Team_can),3);
 Cars=cell(length(Team_can),1);
