@@ -3,29 +3,32 @@
 % 
 function MatchRun(N,Trajectory,Cars,Name,Track,color)
 %% setup figures size
-Height=0.85;
-Width=0.7;
-FontSize=12;
+
+FontSize=14;
 showzoom=1;
 set(0,'DefaultAxesFontName', 'Times New Roman')
 set(0,'DefaultAxesFontSize', FontSize*showzoom)
 set(0,'DefaultTextFontname', 'Times New Roman')
 set(0,'DefaultTextFontSize', FontSize*showzoom)
-set(0,'defaultlinelinewidth',2*showzoom)
-figure(101);
-set(gcf,'units','normalized');
-pos_default = get(gcf,'pos');
-pos1=pos_default;
-pos1(1)=pos1(1)+pos1(3)/2-Width/2;
-pos1(2)=pos1(2)-(Height-pos1(4));
-pos1(3)=Width;
-pos1(4)=Height;
-close gcf
+
+% Window size relative size
+% Height=0.85;
+% Width=0.7;
+% set(0,'defaultlinelinewidth',2*showzoom)
+% figure(101);
+% set(gcf,'units','normalized');
+% pos_default = get(gcf,'pos');
+% pos1=pos_default;
+% pos1(1)=pos1(1)+pos1(3)/2-Width/2;
+% pos1(2)=pos1(2)-(Height-pos1(4));
+% pos1(3)=Width;
+% pos1(4)=Height;
+% close gcf
 %%
 
 Fig=figure(1);
-set(gcf,'units','normalized','pos',pos1);
-
+% set(gcf,'units','normalized','pos',pos1);
+setFigure(Fig, [16, 10])
 
 %% Plot the Track
 centerline=Track.cline;
@@ -279,4 +282,31 @@ for iter=2:skip:iter_final
 end
 pause(3);
 close(writerObj); % Saves the movie.
+end
+
+
+
+function setFigure(fig, figSizeInches)
+    % figure_size = [width, height] in inches. If empty, keep the original size.
+    % Use inches for figure units, optionally resize while preserving top-left corner.
+    oldUnits = get(fig, 'Units');
+    oldPos = get(fig, 'Position');
+    set(fig, 'Units', 'inches');
+    posInches = hgconvertunits(fig, oldPos, oldUnits, 'inches', groot);
+
+    if isempty(figSizeInches)
+        set(fig, 'Position', posInches);
+        return;
+    end
+
+    if ~isnumeric(figSizeInches) || numel(figSizeInches) ~= 2
+        error('figSizeInches must be a numeric [width, height] vector.');
+    end
+
+    newPos = posInches;
+    topY = posInches(2) + posInches(4);
+    newPos(3) = figSizeInches(1);
+    newPos(4) = figSizeInches(2);
+    newPos(2) = topY - newPos(4);
+    set(fig, 'Position', newPos);
 end
